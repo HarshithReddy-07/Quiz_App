@@ -1,0 +1,33 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  #timer {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  #question-grid {
+    border: 1px solid #ddd;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  #question-grid button {
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  #question-area {
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
+  
+  .list-group-item.active {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  

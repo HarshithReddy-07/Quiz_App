@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('result-area').classList.remove('d-none');
       document.getElementById('score').textContent = `You scored ${score} out of ${questions.length}`;
       checkAlert+=1;
+      document.getElementById('submit-btn').style.display = 'none';
     }
   
     setupQuestionGrid();

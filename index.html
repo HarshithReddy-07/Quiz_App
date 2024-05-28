@@ -18,6 +18,27 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-md-12" id="selection-area">
+        <div class="form-group">
+          <label for="topic">Select Topic:</label>
+          <select class="form-control" id="topic">
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="java">Java</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="level">Select Level:</label>
+          <select class="form-control" id="level">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <button id="confirm-btn" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-3">
         <h4>Questions</h4>
         <div id="question-grid" class="d-flex flex-wrap">
@@ -25,7 +46,7 @@
         </div>
       </div>
       <div class="col-md-9">
-        <div id="question-area">
+        <div id="question-area" class="d-none">
           <h4 id="question-text">Select a question to start</h4>
           <div id="options" class="list-group">
             <!-- Options will be inserted here -->
@@ -41,7 +62,7 @@
     </div>
     <div class="row">
       <div class="col-md-12 text-right py-3">
-        <button id="submit-btn" class="btn btn-success">Submit Exam</button>
+        <button id="submit-btn" class="btn btn-success d-none">Submit Exam</button>
       </div>
     </div>
     <div class="row">
@@ -60,5 +81,5 @@
     </div>
   </div>
   <script src="script.js"></script>
-</body>
+  </body>
 </html>

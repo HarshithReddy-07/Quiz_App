@@ -1,34 +1,27 @@
+  let retakebtn=document.querySelector('#retake')
+  retakebtn.addEventListener('click',()=>{
+    location.reload();
+  })
+
   document.addEventListener('DOMContentLoaded', () => {
         let currentQuestionIndex = 0;
         let timerInterval;
-        const answers = {};  // Object to store user's answers
-        const questions = [
-          {
-            question: "Which company developed JavaScript?",
-            options: ["Microsoft", "Netscape", "Google", "IBM"],
-            answer: "Netscape",
-          },
-          {
-            question: "What does HTML stand for?",
-            options: [
-              "Hyper Text Markup Language",
-              "Home Tool Markup Language",
-              "Hyperlinks and Text Markup Language",
-              "Hyperlinking Text Marking Language",
-            ],
-            answer: "Hyper Text Markup Language",
-          },
-          {
-            question: "What does CSS stand for?",
-            options: [
-              "Control Style Sheets",
-              "Cascading Style Sheets",
-              "Control Style Script",
-              "Cascading Style Script"
-            ],
-            answer: "Cascading Style Sheets",
-          },
-        ];
+        let answers = {};  
+        let questions=[];
+
+        async function getQuestions(){
+            let respnse=await fetch("https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple")
+            let json=await respnse.json()
+            let Q=json.results
+            Q.forEach((element)=>{
+              element.incorrect_answers.splice((element.incorrect_answers.length+1)*Math.random() | 0,0,element.correct_answer)
+              questions.push({
+                question:element.question,
+                options:element.incorrect_answers,
+                answer:element.correct_answer
+              })
+            })
+        }
     
         function startTimer(duration, display) {
           let timer = duration, minutes, seconds;
@@ -44,7 +37,6 @@
             if (--timer < 0) {
               clearInterval(timerInterval);
               alert("Time is up!");
-              // Submit the exam
               submitExam();
             }
           }, 1000);
@@ -60,14 +52,15 @@
             optionButton.className = 'list-group-item list-group-item-action option-item';
             optionButton.textContent = option;
             optionButton.addEventListener('click', () => {
-              answers[index] = option;  // Store the user's answer
+              document.querySelectorAll('.question-btn')[currentQuestionIndex].classList.remove('btn-secondary');
+              document.querySelectorAll('.question-btn')[currentQuestionIndex].classList.add('btn-success');
+              answers[index] = option;  
               document.querySelectorAll('.option-item').forEach(btn => btn.classList.remove('active'));
               optionButton.classList.add('active');
             });
             optionsContainer.appendChild(optionButton);
           });
     
-          // Highlight the selected answer if any
           if (answers[index]) {
             document.querySelectorAll('.option-item').forEach(btn => {
               if (btn.textContent === answers[index]) {
@@ -106,12 +99,13 @@
         });
     
         document.getElementById('mark-btn').addEventListener('click', () => {
-          document.querySelectorAll('.question-btn')[currentQuestionIndex].classList.add('btn-warning');
+          document.querySelectorAll('.question-btn')[currentQuestionIndex].classList.add('btn-secondary');
         });
     
         document.getElementById('clear-btn').addEventListener('click', () => {
           delete answers[currentQuestionIndex];
           document.querySelectorAll('.option-item').forEach(btn => btn.classList.remove('active'));
+          document.querySelectorAll('.question-btn')[currentQuestionIndex].classList.remove('btn-success');
         });
     
         document.getElementById('submit-btn').addEventListener('click', () => {
@@ -127,17 +121,12 @@
           const radius = correctCircle.r.baseVal.value;
           const circumference = 2 * Math.PI * radius;
     
-          // Incorrect circle (always full)
           incorrectCircle.style.strokeDasharray = `${circumference}`;
           incorrectCircle.style.strokeDashoffset = `0`;
     
-          // Correct circle
           correctCircle.style.strokeDasharray = `${circumference}`;
           correctCircle.style.strokeDashoffset = `${circumference - (correctPercent / 100) * circumference}`;
         }
-       
-        
-          
     
         function submitExam() {
           document.getElementById('submit-btn').style.display = 'none';
@@ -154,8 +143,10 @@
           document.getElementById('score').textContent = `You scored ${score} out of ${questions.length}`;
           setProgress(correctPercent);
         }
-    
-        setupQuestionGrid();
-        startTimer(600, document.getElementById('timer'));
-        loadQuestion(currentQuestionIndex);
+        getQuestions();
+        setTimeout(()=>{
+          setupQuestionGrid();
+          startTimer(600, document.getElementById('timer'));
+          loadQuestion(currentQuestionIndex);
+        },2000);
       });

@@ -30,4 +30,14 @@ body {
     background-color: #007bff;
     border-color: #007bff;
   }
+ .progress-ring {
+      position: relative;
+      display: inline-block;
+    }
+
+    .progress-ring__circle {
+      transition: 0.35s stroke-dasharray;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
   

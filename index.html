@@ -16,7 +16,8 @@
           <div id="timer">Time left: 10:00</div>
         </header>
       </div>
-    </div>    <div class="row">
+    </div>
+    <div class="row">
       <div class="col-md-3">
         <h4>Questions</h4>
         <div id="question-grid" class="d-flex flex-wrap">
@@ -45,14 +46,19 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div id="result-area" class="d-none">
+        <div id="result-area" class="d-none text-center">
           <h4>Your Score</h4>
+          <div class="progress-ring">
+            <svg id="progress-ring" width="120" height="120">
+              <circle class="progress-ring__circle" stroke="red" stroke-width="10" fill="transparent" r="52" cx="60" cy="60"/>
+              <circle class="progress-ring__circle" stroke="green" stroke-width="10" fill="transparent" r="52" cx="60" cy="60"/>
+            </svg>
+          </div>
           <p id="score"></p>
         </div>
       </div>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>

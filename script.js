@@ -1,6 +1,5 @@
   document.addEventListener('DOMContentLoaded', () => {
         let currentQuestionIndex = 0;
-        let checkAlert = 0;
         let timerInterval;
         const answers = {};  // Object to store user's answers
         const questions = [
@@ -116,7 +115,7 @@
         });
     
         document.getElementById('submit-btn').addEventListener('click', () => {
-          if (checkAlert === 0 && confirm("Are you sure you want to submit the exam?")) {
+          if (confirm("Are you sure you want to submit the exam?")) {
             clearInterval(timerInterval);
             submitExam();
           }
@@ -141,6 +140,7 @@
           
     
         function submitExam() {
+          document.getElementById('submit-btn').style.display = 'none';
           let score = 0;
           questions.forEach((question, index) => {
             if (answers[index] === question.answer) {

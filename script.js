@@ -6,7 +6,7 @@
   document.addEventListener('DOMContentLoaded', () => {
         let currentQuestionIndex = 0;
         let timerInterval;
-        let answers = {};  
+        let answers = {};
         let questions=[];
 
         async function getQuestions(){
@@ -52,8 +52,10 @@
             optionButton.className = 'list-group-item list-group-item-action option-item';
             optionButton.textContent = option;
             optionButton.addEventListener('click', () => {
-              document.querySelectorAll('.question-btn')[currentQuestionIndex].classList.remove('btn-secondary');
-              document.querySelectorAll('.question-btn')[currentQuestionIndex].classList.add('btn-success');
+              let Question_btn=document.querySelectorAll('.question-btn')[currentQuestionIndex];
+              Question_btn.classList.remove('btn-secondary');
+              Question_btn.classList.remove('btn-outline-primary');
+              Question_btn.classList.add('btn-success');
               answers[index] = option;  
               document.querySelectorAll('.option-item').forEach(btn => btn.classList.remove('active'));
               optionButton.classList.add('active');
@@ -99,13 +101,24 @@
         });
     
         document.getElementById('mark-btn').addEventListener('click', () => {
-          document.querySelectorAll('.question-btn')[currentQuestionIndex].classList.add('btn-secondary');
+          let question_btn=document.querySelectorAll('.question-btn')[currentQuestionIndex];
+          question_btn.classList.remove('btn-outline-primary');
+          question_btn.classList.add('btn-secondary');
+          // answered and marked question
+          document.querySelectorAll('.option-item').forEach((btn) => {if(btn.classList.contains('active')){
+            question_btn.classList.add('btn-warning');
+          }});
         });
     
         document.getElementById('clear-btn').addEventListener('click', () => {
           delete answers[currentQuestionIndex];
           document.querySelectorAll('.option-item').forEach(btn => btn.classList.remove('active'));
-          document.querySelectorAll('.question-btn')[currentQuestionIndex].classList.remove('btn-success');
+          let question_btn=document.querySelectorAll('.question-btn')[currentQuestionIndex];
+          question_btn.classList.remove('btn-success');
+          question_btn.classList.remove('btn-warning');
+          if(!question_btn.classList.contains('btn-secondary'))
+            question_btn.classList.add('btn-outline-primary');
+
         });
     
         document.getElementById('submit-btn').addEventListener('click', () => {
@@ -137,7 +150,6 @@
             }
           });
           const correctPercent = (score / questions.length) * 100;
-          
           document.getElementById('question-area').classList.add('d-none');
           document.getElementById('result-area').classList.remove('d-none');
           document.getElementById('score').textContent = `You scored ${score} out of ${questions.length}`;

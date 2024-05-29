@@ -1,6 +1,6 @@
   let retakebtn=document.querySelector('#retake')
   retakebtn.addEventListener('click',()=>{
-    location.reload();
+    location.href='index.html';
   })
 
   document.addEventListener('DOMContentLoaded', () => {

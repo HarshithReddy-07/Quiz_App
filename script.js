@@ -164,5 +164,5 @@
           setupQuestionGrid();
           startTimer(600, document.getElementById('timer'));
           loadQuestion(currentQuestionIndex);
-        },2000);
+        },3000);
       });

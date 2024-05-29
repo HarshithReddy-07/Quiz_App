@@ -13,7 +13,6 @@
 
         async function getQuestions(){
             let URL=`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`;
-            console.log(URL)
             let respnse=await fetch(URL);
             let json=await respnse.json();
             let Q=json.results
@@ -48,10 +47,14 @@
     
         function loadQuestion(index) {
           const question = questions[index];
-          document.getElementById('question-text').textContent = question.question;
+          try{
+            document.getElementById('question-text').textContent = question.question;
+          }catch{
+            location.reload();
+          }
           const optionsContainer = document.getElementById('options');
           optionsContainer.innerHTML = '';
-          question.options.forEach((option, i) => {
+          question.options.forEach((option) => {
             const optionButton = document.createElement('button');
             optionButton.className = 'list-group-item list-group-item-action option-item';
             optionButton.textContent = option;
@@ -108,7 +111,7 @@
           let question_btn=document.querySelectorAll('.question-btn')[currentQuestionIndex];
           question_btn.classList.remove('btn-outline-primary');
           question_btn.classList.add('btn-secondary');
-          // answered and marked question
+          
           document.querySelectorAll('.option-item').forEach((btn) => {if(btn.classList.contains('active')){
             question_btn.classList.add('btn-warning');
           }});
@@ -164,5 +167,5 @@
           setupQuestionGrid();
           startTimer(600, document.getElementById('timer'));
           loadQuestion(currentQuestionIndex);
-        },3000);
+        },2000);
       });

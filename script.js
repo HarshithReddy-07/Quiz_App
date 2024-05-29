@@ -8,10 +8,14 @@
         let timerInterval;
         let answers = {};
         let questions=[];
+        let category=localStorage.getItem('quiz-topic');
+        let difficulty=localStorage.getItem('quiz-level-difficulty');
 
         async function getQuestions(){
-            let respnse=await fetch("https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple")
-            let json=await respnse.json()
+            let URL=`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`;
+            console.log(URL)
+            let respnse=await fetch(URL);
+            let json=await respnse.json();
             let Q=json.results
             Q.forEach((element)=>{
               element.incorrect_answers.splice((element.incorrect_answers.length+1)*Math.random() | 0,0,element.correct_answer)

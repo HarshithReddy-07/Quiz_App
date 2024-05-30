@@ -49,8 +49,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
-        <div id="result-area" class="d-none text-center">
+      <div class="col-md-12 d-none text-center" id="result-area" >
+        <!-- <div id="result-area" class="d-none text-center">
           <h4>Your Score</h4>
           <div class="progress-ring">
             <svg id="progress-ring" width="120" height="120">
@@ -58,12 +58,24 @@
               <circle class="progress-ring__circle" stroke="green" stroke-width="10" fill="transparent" r="52" cx="60" cy="60"/>
             </svg>
           </div>
-          <p id="score"></p>
+          <p id="score"></p> -->
+          <h1 class="heading-2 my-3">Your Score</h1>
+          <div class="result-stats row align-items-center justify-content-center">
+            <div class="chart-container col-md-5 m-3" style="width:max-content;">
+              <canvas class="result-chart" style="width:auto;"></canvas>
+            </div>
+            <div class="result-details col-md-4 fst-italic">
+              <ul type="none">
+                
+              </ul>
+            </div>
+          </div>
           <button class="btn btn-success" id="retake">Retake Quiz</button>
         </div>
       </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

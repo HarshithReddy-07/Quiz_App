@@ -51,12 +51,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }catch{
       location.reload();
     }
+    let b=document.getElementById('time-end').classList.contains('d-none');
     const optionsContainer = document.getElementById('options');
     optionsContainer.innerHTML = '';
     question.options.forEach((option) => {
       const optionButton = document.createElement('button');
       optionButton.className = 'list-group-item list-group-item-action option-item';
       optionButton.innerHTML = option;
+      optionButton.disabled = b;
+      if(b && option==question.answer){
+        optionButton.classList.add('text-success');
+        optionButton.classList.add('fw-bold');
+      }
       optionButton.addEventListener('click', () => {
         let Question_btn=document.querySelectorAll('.question-btn')[currentQuestionIndex];
         Question_btn.classList.remove('btn-secondary');
@@ -73,6 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.option-item').forEach(btn => {
         if (btn.innerHTML === answers[index]) {
           btn.classList.add('active');
+          if (b && answers[index]!=question.answer){
+            btn.classList.add('text-danger');
+            btn.classList.add('fw-bold');
+          }
         }
       });
     }
@@ -103,6 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentQuestionIndex < questions.length - 1) {
       currentQuestionIndex++;
       loadQuestion(currentQuestionIndex);
+    }
+  });
+  // keyboard Events for previous,next
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') {
+      document.getElementById('next-btn').dispatchEvent(new Event('click'));
+    }
+    if(event.key === 'ArrowLeft') {
+      document.getElementById('prev-btn').dispatchEvent(new Event('click'));
     }
   });
 
@@ -159,11 +178,11 @@ document.addEventListener('DOMContentLoaded', () => {
       else incorrect++;
     });
 
-    const correctPercent = (correct / questions.length) * 100;
-    document.getElementById('question-area').classList.add('d-none');
-    document.getElementById('questions-grid-area').classList.remove('col-md-3');
-    document.getElementById('questions-grid-area').classList.add('col');
+    document.getElementById('question-controls').classList.add('d-none');
+    // const correctPercent = (correct / questions.length) * 100;
+    document.getElementById('web-title').classList.remove('text-sm-start');
     document.getElementById('time-end').classList.add('d-none');
+    document.querySelectorAll('.question-btn')[0].dispatchEvent(new Event('click'));
     document.getElementById('result-area').classList.remove('d-none');
     // document.getElementById('score').textContent = `You scored ${score} out of ${questions.length}`;
     // setProgress(correctPercent);

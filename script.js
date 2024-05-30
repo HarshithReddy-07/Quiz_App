@@ -10,7 +10,6 @@
         let questions=[];
         let category=localStorage.getItem('quiz-topic');
         let difficulty=localStorage.getItem('quiz-level-difficulty');
-
         async function getQuestions(){
             let URL=`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`;
             let respnse=await fetch(URL);
@@ -158,6 +157,7 @@
           });
           const correctPercent = (score / questions.length) * 100;
           document.getElementById('question-area').classList.add('d-none');
+          document.getElementById('time-end').classList.add('d-none');
           document.getElementById('result-area').classList.remove('d-none');
           document.getElementById('score').textContent = `You scored ${score} out of ${questions.length}`;
           setProgress(correctPercent);

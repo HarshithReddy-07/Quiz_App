@@ -47,7 +47,7 @@
         function loadQuestion(index) {
           const question = questions[index];
           try{
-            document.getElementById('question-text').textContent = question.question;
+            document.getElementById('question-text').innerHTML = question.question;
           }catch{
             location.reload();
           }
@@ -56,7 +56,7 @@
           question.options.forEach((option) => {
             const optionButton = document.createElement('button');
             optionButton.className = 'list-group-item list-group-item-action option-item';
-            optionButton.textContent = option;
+            optionButton.innerHTML = option;
             optionButton.addEventListener('click', () => {
               let Question_btn=document.querySelectorAll('.question-btn')[currentQuestionIndex];
               Question_btn.classList.remove('btn-secondary');
@@ -157,6 +157,8 @@
           });
           const correctPercent = (score / questions.length) * 100;
           document.getElementById('question-area').classList.add('d-none');
+          document.getElementById('questions-grid-area').classList.remove('col-md-3');
+          document.getElementById('questions-grid-area').classList.add('col');
           document.getElementById('time-end').classList.add('d-none');
           document.getElementById('result-area').classList.remove('d-none');
           document.getElementById('score').textContent = `You scored ${score} out of ${questions.length}`;

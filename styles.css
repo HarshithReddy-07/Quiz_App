@@ -1,8 +1,11 @@
-/* styles.css */
+*{
+  background-color: black;
+  color:white
+}
 body {
     font-family: Arial, sans-serif;
+    background-color: black;
   }
-  
   #timer {
     font-size: 1.5rem;
     font-weight: bold;
@@ -20,7 +23,10 @@ body {
     width: 40px;
     height: 40px;
   }
-  
+  h1, h2, h3, h4, h5, h6 {
+    color: #053df7;
+    margin-bottom: 15px;
+}
   #question-area {
     border: 1px solid #ddd;
     padding: 20px;
@@ -40,4 +46,92 @@ body {
       transform: rotate(-90deg);
       transform-origin: 50% 50%;
     }
-  
+.fst-italic{
+  color: #007bff;
+}
+
+.btn {
+  transition: all 0.3s ease; 
+}
+
+.btn:hover {
+  background-color: #3A7D44;
+  transform: scale(1.05); 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.btn:active {
+  border-color: #FF8C00; 
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
+  transform: scale(0.98);
+}
+
+on states */
+.btn-primary {
+  background-color: #4CAF50; 
+  border-color: #4CAF50;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6C757D; 
+  border-color: #6C757D;
+  color: white;
+}
+
+.btn-success {
+  background-color: #28A745; 
+  border-color: #28A745;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #FFC107; 
+  border-color: #FFC107;
+  color: black;
+}
+
+.btn-danger {
+  background-color: #DC3545; 
+    border-color: #DC3545;
+  color: white;
+}
+
+.option-item {
+  display: block;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-size: 1.1em;
+}
+
+.option-item:hover {
+  background-color: #e8f4fa;
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.option-item.active, .option-item:focus {
+  background-color: #1c6ea4;
+  color: #fff;
+  border-color: #1c6ea4;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(28, 110, 164, 0.5);
+}
+
+.option-item:active {
+  transform: scale(0.98);
+}
+
+
+#options {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fafafa;
+}

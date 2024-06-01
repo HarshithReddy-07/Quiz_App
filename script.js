@@ -7,11 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const spinner = document.getElementById('spinner');
   let currentQuestionIndex = 0;
   let previousQuestionIndex =-1;
+  let prev_btn=document.getElementById('prev-btn');
+  let next_btn=document.getElementById('next-btn');
   let timerInterval;
   let answers = {};
   let questions=[];
   let category=localStorage.getItem('quiz-topic');
   let difficulty=localStorage.getItem('quiz-level-difficulty');
+  prev_btn.style.display='none';
   async function getQuestions(){
       let URL=`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`;
       let respnse=await fetch(URL);
@@ -111,25 +114,34 @@ document.addEventListener('DOMContentLoaded', () => {
       questionButton.textContent = i + 1;
       questionButton.addEventListener('click', () => {
         currentQuestionIndex = i;
+        checkButtonNecessity();
         loadQuestion(i);
       });
       gridContainer.appendChild(questionButton);
     });
   }
 
+  function checkButtonNecessity(){
+    if (currentQuestionIndex==0) prev_btn.style.display='none';
+    else prev_btn.style.display='inline-block';
+    if (currentQuestionIndex==9) next_btn.style.display='none';
+    else next_btn.style.display='inline-block';
+  }
+
   document.getElementById('prev-btn').addEventListener('click', () => {
     if (currentQuestionIndex > 0) {
       currentQuestionIndex--;
       loadQuestion(currentQuestionIndex);
-    }
+    }checkButtonNecessity();
   });
 
   document.getElementById('next-btn').addEventListener('click', () => {
     if (currentQuestionIndex < questions.length - 1) {
       currentQuestionIndex++;
       loadQuestion(currentQuestionIndex);
-    }
+    }checkButtonNecessity();
   });
+
   // keyboard Events for previous,next
   document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowRight') {

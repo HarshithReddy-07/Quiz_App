@@ -165,10 +165,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let incorrect=0;
     let Unanswered =0;
     questions.forEach((question, index) => {
-      console.log(answers[index], question.answer)
-      if (answers[index] === question.answer) correct++;
+      let question_btn=document.querySelectorAll('.question-btn')[index];
+      if (answers[index] === question.answer) {
+        correct++;
+        if (question_btn.classList.contains('btn-warning')){
+          question_btn.classList.remove('btn-warning');
+          question_btn.classList.add('btn-success');
+        }
+      }
       else if (answers[index] === undefined) Unanswered++;
-      else incorrect++;
+      else {
+        incorrect++;
+        if(question_btn.classList.contains('btn-success') || question_btn.classList.contains('btn-warning')){ 
+          question_btn.classList.remove('btn-success');
+          question_btn.classList.remove('btn-warning');
+          question_btn.classList.add('btn-danger');
+        }
+      }
     });
 
     document.getElementById('question-controls').classList.add('d-none');
@@ -179,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
     createChart([correct,incorrect,Unanswered])
   }
   function createChart(results) {
-    console.log(results,answers);
     let resultChart = document.querySelector('.result-chart');
     resultData={
       lables:['Correct','Incorrect','Unanswered'],

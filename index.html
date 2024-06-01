@@ -20,7 +20,12 @@
             pointer-events: none;
             z-index: 1;
         }
-
+        .modal-dialog {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
         .modal-content {
             background-color: rgba(255, 255, 255, 0.8)!important;
             border: 3px solid white;
@@ -112,9 +117,8 @@
      <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header text-center">
+                <div class="modal-header justify-content-center">
                     <h3 class="modal-title" id="welcomeModalLabel">Exam Quest</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     Welcome to the Exam App! Please read the instructions carefully before proceeding.

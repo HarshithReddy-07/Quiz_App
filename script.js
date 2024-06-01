@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (--timer < 0) {
         clearInterval(timerInterval);
         alert("Time is up!");
-        submitExam();
+        submitQuiz();
       }
     }, 1000);
   }
@@ -153,13 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   document.getElementById('submit-btn').addEventListener('click', () => {
-    if (confirm("Are you sure you want to submit the exam?")) {
+    if (confirm("Are you sure you want to submit the Quiz?")) {
       clearInterval(timerInterval);
-      submitExam();
+      submitQuiz();
     }
   });
 
-  function submitExam() {
+  function submitQuiz() {
     document.getElementById('submit-btn').style.display = 'none';
     let correct = 0;
     let incorrect=0;
@@ -193,21 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
         datasets:[{
           label:"count",
           data:resultData.data,
-          backgroundColor: [
-            'rgb(103, 225, 99)',
-            'rgb(255, 99, 132)',
-            'rgb(203, 201, 204)'
-          ],
+          backgroundColor: [ 'rgb(103, 225, 99)', 'rgb(255, 99, 132)','rgb(203, 201, 204)'],
         }]
       },
-      options:{
-        borderWidth:4,
-        plugins:{
-          legend:{
-            display:false
-          },
-        }
-      }
+      options:{borderWidth:4, plugins:{ legend:{display:false},}}
     })
     ul=document.querySelector('.result-details ul');
     ['Correct','Incorrect','Unanswered'].forEach((l,i)=>{

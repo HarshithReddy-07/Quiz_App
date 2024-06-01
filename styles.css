@@ -54,12 +54,6 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease; 
 }
 
-/* #question-grid .btn:hover {
-  background-color: #3A7D44;
-  transform: scale(1.05); 
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
-} */
-
 #question-grid .btn:active {
   border-color: #FF8C00; 
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
@@ -137,8 +131,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .answer{
-  color :rgb(47, 255, 102)!important;
+  background-color :rgb(47, 255, 102)!important;
+  color: black !important;
 }
 .wrong{
-  color :rgb(205, 0, 0)!important;
+  background-color :rgb(205, 0, 0)!important;
 }

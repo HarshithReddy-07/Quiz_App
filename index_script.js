@@ -34,12 +34,6 @@ window.addEventListener('load', () => {
             c.stroke()
         }
     } 
-    function animate() {
-        drawCircles();
-        // requestAnimationFrame(animate);
-    }
     resize();
-    animate();
     window.addEventListener('resize', resize);
-    // window.addEventListener('', resize);
 });

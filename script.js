@@ -4,6 +4,7 @@ retakebtn.addEventListener('click',()=>{
 })
 
 document.addEventListener('DOMContentLoaded', () => {
+  const spinner = document.getElementById('spinner');
   let currentQuestionIndex = 0;
   let previousQuestionIndex =-1;
   let timerInterval;
@@ -44,42 +45,50 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 1000);
   }
+
+  function loader(){
+    spinner.style.display = 'block';
+    setTimeout(()=>{
+      spinner.style.display = 'none';
+    }
+    ,2000);
+  }
   
   function loadQuestion(index) {
-    const question = questions[index];
-    try{
-      document.getElementById('question-text').innerHTML = question.question;
-      document.querySelectorAll('.question-btn')[index].style.borderRadius = '50%';
-      if(previousQuestionIndex>=0){
-        document.querySelectorAll('.question-btn')[previousQuestionIndex].style.borderRadius = '0px';  
+      const question = questions[index];
+      try{
+        document.getElementById('question-text').innerHTML = question.question;
+        document.querySelectorAll('.question-btn')[index].style.borderRadius = '50%';
+        if(previousQuestionIndex>=0){
+          document.querySelectorAll('.question-btn')[previousQuestionIndex].style.borderRadius = '0px';  
+        }
+        previousQuestionIndex=index;
+      }catch{
+        location.reload();
       }
-      previousQuestionIndex=index;
-    }catch{
-      location.reload();
-    }
-    let b=document.getElementById('time-end').classList.contains('d-none');
-    const optionsContainer = document.getElementById('options');
-    optionsContainer.innerHTML = '';
-    question.options.forEach((option) => {
-      const optionButton = document.createElement('button');
-      optionButton.className = 'list-group-item list-group-item-action option-item';
-      optionButton.innerHTML = option;
-      optionButton.disabled = b;
-      if(b && option==question.answer){
-        optionButton.classList.add('answer');
-        optionButton.classList.add('fw-bold');
-      }
-      optionButton.addEventListener('click', () => {
-        let Question_btn=document.querySelectorAll('.question-btn')[currentQuestionIndex];
-        Question_btn.classList.remove('btn-secondary');
-        Question_btn.classList.remove('btn-outline-primary');
-        Question_btn.classList.add('btn-success');
-        answers[index] = option;  
-        document.querySelectorAll('.option-item').forEach(btn => btn.classList.remove('active'));
-        optionButton.classList.add('active');
+      let b=document.getElementById('time-end').classList.contains('d-none');
+      const optionsContainer = document.getElementById('options');
+      optionsContainer.innerHTML = '';
+      question.options.forEach((option) => {
+        const optionButton = document.createElement('button');
+        optionButton.className = 'list-group-item list-group-item-action option-item';
+        optionButton.innerHTML = option;
+        optionButton.disabled = b;
+        if(b && option==question.answer){
+          optionButton.classList.add('answer');
+          optionButton.classList.add('fw-bold');
+        }
+        optionButton.addEventListener('click', () => {
+          let Question_btn=document.querySelectorAll('.question-btn')[currentQuestionIndex];
+          Question_btn.classList.remove('btn-secondary');
+          Question_btn.classList.remove('btn-outline-primary');
+          Question_btn.classList.add('btn-success');
+          answers[index] = option;  
+          document.querySelectorAll('.option-item').forEach(btn => btn.classList.remove('active'));
+          optionButton.classList.add('active');
+        });
+        optionsContainer.appendChild(optionButton);
       });
-      optionsContainer.appendChild(optionButton);
-    });
 
     if (answers[index]) {
       document.querySelectorAll('.option-item').forEach(btn => {
@@ -219,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
+  loader();
   getQuestions();
   setTimeout(()=>{
     setupQuestionGrid();

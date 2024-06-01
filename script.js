@@ -5,6 +5,7 @@ retakebtn.addEventListener('click',()=>{
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentQuestionIndex = 0;
+  let previousQuestionIndex =-1;
   let timerInterval;
   let answers = {};
   let questions=[];
@@ -48,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const question = questions[index];
     try{
       document.getElementById('question-text').innerHTML = question.question;
+      document.querySelectorAll('.question-btn')[index].style.borderRadius = '50%';
+      if(previousQuestionIndex>=0){
+        document.querySelectorAll('.question-btn')[previousQuestionIndex].style.borderRadius = '0px';  
+      }
+      previousQuestionIndex=index;
     }catch{
       location.reload();
     }
@@ -60,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       optionButton.innerHTML = option;
       optionButton.disabled = b;
       if(b && option==question.answer){
-        optionButton.classList.add('text-success');
+        optionButton.classList.add('answer');
         optionButton.classList.add('fw-bold');
       }
       optionButton.addEventListener('click', () => {
@@ -80,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btn.innerHTML === answers[index]) {
           btn.classList.add('active');
           if (b && answers[index]!=question.answer){
-            btn.classList.add('text-danger');
+            btn.classList.add('wrong');
             btn.classList.add('fw-bold');
           }
         }
@@ -153,19 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // function setProgress(correctPercent) {
-  //   const correctCircle = document.querySelectorAll('.progress-ring__circle')[1];
-  //   const incorrectCircle = document.querySelectorAll('.progress-ring__circle')[0];
-  //   const radius = correctCircle.r.baseVal.value;
-  //   const circumference = 2 * Math.PI * radius;
-    
-  //   incorrectCircle.style.strokeDasharray = `${circumference}`;
-  //   incorrectCircle.style.strokeDashoffset = `0`;
-    
-  //   correctCircle.style.strokeDasharray = `${circumference}`;
-  //   correctCircle.style.strokeDashoffset = `${circumference - (correctPercent / 100) * circumference}`;
-  // }
-
   function submitExam() {
     document.getElementById('submit-btn').style.display = 'none';
     let correct = 0;
@@ -179,13 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('question-controls').classList.add('d-none');
-    // const correctPercent = (correct / questions.length) * 100;
     document.getElementById('web-title').classList.remove('text-sm-start');
     document.getElementById('time-end').classList.add('d-none');
     document.querySelectorAll('.question-btn')[0].dispatchEvent(new Event('click'));
     document.getElementById('result-area').classList.remove('d-none');
-    // document.getElementById('score').textContent = `You scored ${score} out of ${questions.length}`;
-    // setProgress(correctPercent);
     createChart([correct,incorrect,Unanswered])
   }
   function createChart(results) {
